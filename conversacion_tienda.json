@@ -1,0 +1,34 @@
+[
+  {
+    "role": "user",
+    "text": "cuanto cuesta un pantalon"
+  },
+  {
+    "role": "model",
+    "text": "El pantalón cuesta $89.000 y actualmente tenemos 12 unidades disponibles en stock."
+  },
+  {
+    "role": "user",
+    "text": "Quiero 2 camisas y 1 pantalón a Popayán"
+  },
+  {
+    "role": "model",
+    "text": "El resumen de tu pedido con envío a Popayán es el siguiente:\n\n- **2 Camisas:** $90.000 ($45.000 c/u)\n- **1 Pantalón:** $89.000\n- **Subtotal:** $179.000\n- **Envío:** Gratuito ($0)\n- **Total a pagar:** $179.000\n\n¿Deseas confirmar la compra para proceder a guardar tu pedido?"
+  },
+  {
+    "role": "user",
+    "text": "si"
+  },
+  {
+    "role": "model",
+    "text": "¡Tu pedido ha sido guardado con éxito! \n\n- **Número de pedido:** #2\n- **Ciudad de envío:** Popayán\n- **Total a pagar:** $179.000\n\n¡Muchas gracias por tu compra! Si necesitas algo más, estaré encantado de ayudarte."
+  },
+  {
+    "role": "user",
+    "text": "Cuál es la capital de Francia"
+  },
+  {
+    "role": "model",
+    "text": "Lo siento, solo puedo ayudarte con consultas y compras relacionadas con nuestra tienda de ropa. ¿Te gustaría saber sobre nuestros productos, precios o realizar un pedido?"
+  }
+]

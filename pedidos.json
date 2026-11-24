@@ -1,0 +1,46 @@
+[
+  {
+    "items": [
+      {
+        "producto": "Pantalón",
+        "cantidad": 2,
+        "precio": 89000,
+        "subtotal": 178000
+      },
+      {
+        "producto": "Zapatos",
+        "cantidad": 1,
+        "precio": 150000,
+        "subtotal": 150000
+      }
+    ],
+    "ciudad": "Cali",
+    "subtotal": 328000,
+    "descuento": 49200,
+    "envio": 13000,
+    "total": 291800,
+    "numero": 1
+  },
+  {
+    "items": [
+      {
+        "producto": "Camisa",
+        "cantidad": 2,
+        "precio": 45000,
+        "subtotal": 90000
+      },
+      {
+        "producto": "Pantalón",
+        "cantidad": 1,
+        "precio": 89000,
+        "subtotal": 89000
+      }
+    ],
+    "ciudad": "Popayán",
+    "subtotal": 179000,
+    "descuento": 0,
+    "envio": 0,
+    "total": 179000,
+    "numero": 2
+  }
+]
