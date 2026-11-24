@@ -12,9 +12,7 @@ client = genai.Client()
 MODELO = "gemini-3.5-flash"  # si da 404, prueba gemini-3.7-flash o gemini-3.8-flash
 MAX_VUELTAS = 6
 
-# ---------------------------------------------------------------
 # Inventario (2.1)
-# ---------------------------------------------------------------
 if not os.path.exists("inventario.json"):
     with open("inventario.json", "w", encoding="utf-8") as f:
         json.dump({
@@ -28,7 +26,6 @@ if not os.path.exists("inventario.json"):
 with open("inventario.json", encoding="utf-8") as f:
     INVENTARIO = json.load(f)
 
-
 def normalizar(texto):
     """Minúsculas, sin tildes y sin plural."""
     texto = unicodedata.normalize("NFD", str(texto).lower().strip())
@@ -39,7 +36,6 @@ def normalizar(texto):
         return texto[:-1]
     return texto
 
-
 def buscar_producto(nombre):
     """Devuelve el nombre real del producto en el inventario o None."""
     buscado = normalizar(nombre)
@@ -47,7 +43,6 @@ def buscar_producto(nombre):
         if normalizar(real) == buscado:
             return real
     return None
-
 
 def consultar_producto(nombre):
     real = buscar_producto(nombre)
@@ -57,14 +52,11 @@ def consultar_producto(nombre):
             "precio": INVENTARIO[real]["precio"],
             "stock": INVENTARIO[real]["stock"]}
 
-
 def calcular_envio(ciudad):
     return 0 if normalizar(ciudad) == "popayan" else 13000
 
-
 def calcular_descuento(subtotal):
     return round(subtotal * 0.15) if subtotal > 300000 else 0
-
 
 def calcular_pedido(items, ciudad):
     subtotal = 0
@@ -93,10 +85,7 @@ def calcular_pedido(items, ciudad):
             "descuento": descuento, "envio": envio,
             "total": subtotal - descuento + envio}
 
-
-# ---------------------------------------------------------------
 # Descripción de las herramientas (2.2)
-# ---------------------------------------------------------------
 HERRAMIENTAS = [
     {
         "name": "consultar_producto",
@@ -136,16 +125,11 @@ HERRAMIENTAS = [
     },
 ]
 
-
-# ---------------------------------------------------------------
 # Ejecutar lo que pide el modelo (2.3)
-# ---------------------------------------------------------------
 FUNCIONES = {
     "consultar_producto": consultar_producto,
     "calcular_pedido": calcular_pedido,
 }
-
-
 def ejecutar_herramienta(nombre, entrada):
     """Devuelve (texto_json, es_error)."""
     if nombre not in FUNCIONES:
@@ -156,10 +140,7 @@ def ejecutar_herramienta(nombre, entrada):
     except (ValueError, KeyError, TypeError) as e:
         return f"Error: {e}", True
 
-
-# ---------------------------------------------------------------
 # Guardar pedido con confirmación (5.2)
-# ---------------------------------------------------------------
 def guardar_pedido(items, ciudad):
     pedido = calcular_pedido(items, ciudad)
 
@@ -183,7 +164,6 @@ def guardar_pedido(items, ciudad):
     with open("pedidos.json", "w", encoding="utf-8") as f:
         json.dump(pedidos, f, ensure_ascii=False, indent=2)
     return {"guardado": True, "numero": pedido["numero"], "total": pedido["total"]}
-
 
 def registrar_pedidos():
     """Agrega guardar_pedido a HERRAMIENTAS y FUNCIONES una sola vez."""
@@ -214,10 +194,7 @@ def registrar_pedidos():
         },
     })
 
-
-# ---------------------------------------------------------------
 # El ciclo del agente (3.1)
-# ---------------------------------------------------------------
 SISTEMA = (
     "Eres el asistente de una tienda de ropa. "
     "Usa consultar_producto para precios y stock. "
@@ -227,7 +204,6 @@ SISTEMA = (
     "Si piden algo que no tiene que ver con la tienda, responde que solo ayudas con la tienda. "
     "No inventes precios, stock ni productos."
 )
-
 
 def agente(pregunta, historial=None, verbose=False):
     historial = historial or []
@@ -266,10 +242,7 @@ def agente(pregunta, historial=None, verbose=False):
 
     return "Lo siento, no pude completar la solicitud. Intenta de nuevo."
 
-
-# ---------------------------------------------------------------
 # Pruebas (2.1 y 5.1)
-# ---------------------------------------------------------------
 def pruebas():
     print(calcular_pedido([{"producto": "pantalones", "cantidad": 2},
                            {"producto": "zapatos", "cantidad": 1}], "Cali"))
@@ -283,11 +256,8 @@ def pruebas():
     for nombre, entrada in casos:
         texto, es_error = ejecutar_herramienta(nombre, entrada)
         print(nombre, "| error:", es_error, "|", texto)
-
-
-# ---------------------------------------------------------------
 # Chat de consola y reto integrador (4.1)
-# ---------------------------------------------------------------
+
 def chat():
     registrar_pedidos()
     historial = []  # [{"role": "user"/"model", "text": ...}]
@@ -314,7 +284,6 @@ def chat():
     with open("conversacion_tienda.json", "w", encoding="utf-8") as f:
         json.dump(historial, f, ensure_ascii=False, indent=2)
     print("Conversación guardada en conversacion_tienda.json")
-
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "pruebas":
